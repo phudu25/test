@@ -31,8 +31,11 @@ class Main extends Component {
         return (
             <div>
                 <Header />
-                <Menu dishes={this.state.dishes} onClick={(dish) => this.onDishSelect(dish)} />
-                <DishDetail selectedDish={this.state.selectedDish} />
+                <Switch>
+                    <Route path='/home' component={HomePage} />
+                    <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
+                    <Redirect to="/home" />
+                </Switch>
                 <Footer />
             </div>
         );
