@@ -4,7 +4,7 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CommentForm from './CommentForm';
+import CommentFormComponent from './CommentFormComponent';
 
 class DishDetail extends Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class DishDetail extends Component {
                             </li>
                         ))}
                     </ul>
-                    <Button outline onClick={this.toggleModal}><span className="fa fa-lg"></span> Submit Comment</Button>
+                    <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
                 </div>
             </div>
         );
@@ -70,7 +70,7 @@ class DishDetail extends Component {
                         {this.renderComments({comments:this.props.comments})}
                     </div>
                 </div>
-                <CommentForm isModalOpen={this.state.isModalOpen} toggle={this.toggleModal} />
+                <CommentFormComponent isModalOpen={this.state.isModalOpen} toggle={this.toggleModal} />
             </div>
         );
     }

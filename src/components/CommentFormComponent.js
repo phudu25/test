@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Navbar, Row} from "reactstrap";
 import {Control, Errors, LocalForm} from "react-redux-form";
 
-class CommentForm extends Component {
+class CommentFormComponent extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,13 +23,25 @@ class CommentForm extends Component {
                     <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
                         <Row className="form-group">
                             <Label htmlFor="rating">Rating</Label>
-                            <select value={this.rate}>
+                            <Control.select model=".rating" id="rating" name="rating"
+                                            placeholder="Select ratring number"
+                                            className="form-control"
+                                            validators={{
+
+                                            }}
+                            >
+                                <option value=""></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
-                            </select>
+                            </Control.select>
+                            <Errors className="text-danger" model=".rating" show="touched"
+                                    messages={{
+                                        required: 'Required field',
+                                    }}
+                            />
                         </Row>
                         <Row className="form-group">
                             <Label htmlFor="author">Your name</Label>
@@ -37,7 +49,7 @@ class CommentForm extends Component {
                                           placeholder="author"
                                           className="form-control"
                                           validators={{
-                                              required, minLength: minLength(3), maxLength: maxLength(15)
+                                              minLength: minLength(3), maxLength: maxLength(15)
                                           }}
                             />
                             <Errors
@@ -45,24 +57,31 @@ class CommentForm extends Component {
                                 model=".author"
                                 show="touched"
                                 messages={{
-                                    required: 'Required',
-                                    minLength: 'Must be greater than 2 characters',
-                                    maxLength: 'Must be 15 characters or less'
+                                    minLength: 'The author field should at least be three characters long',
+                                    maxLength: 'The author field should be less than or equal to 15 characters.'
                                 }}
                             />
                         </Row>
-                        <Row className="form-group">
-                            <Label htmlFor="comment">Comment</Label>
-                            <Input type="textarea" name="comment"  rows='6'
-                                   innerRef={(input) => this.comment = input}  />
-                        </Row>
 
                         <Row className="form-group">
-                            <Col md={{size:10, offset: 2}}>
+                            <Label htmlFor="comment">Your comment</Label>
+                            <Control.textarea model=".comment" id="comment" name="comment" rows='6'
+                                          placeholder="comment"
+                                          className="form-control"
+                                          validators={{
+                                          }}
+                            />
+                            <Errors
+                                className="text-danger"
+                                model=".author"
+                                show="touched"
+                                messages={{}}
+                            />
+                        </Row>
+                        <Row className="form-group">
                                 <Button type="submit" color="primary">
                                     Submit
                                 </Button>
-                            </Col>
                         </Row>
                     </LocalForm>
                         </div>
@@ -72,4 +91,4 @@ class CommentForm extends Component {
     }
 }
 
-export default CommentForm;
+export default CommentFormComponent;
