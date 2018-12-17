@@ -8,8 +8,8 @@ class CommentFormComponent extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
+        this.props.toggle();
     }
     render() {
         const required = (val) => val && val.length;
@@ -17,7 +17,7 @@ class CommentFormComponent extends Component {
         const minLength = (len) => (val) => val && (val.length >= len);
         return(
             <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggle}>
-                <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                <ModalHeader toggle={this.props.toggle}>Submit Comment</ModalHeader>
                 <ModalBody>
                     <div className="container">
                     <LocalForm onSubmit={(values) => this.handleSubmit(values)}>

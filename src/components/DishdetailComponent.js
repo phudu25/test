@@ -70,7 +70,7 @@ class DishDetail extends Component {
                         {this.renderComments({comments:this.props.comments})}
                     </div>
                 </div>
-                <CommentFormComponent isModalOpen={this.state.isModalOpen} toggle={this.toggleModal} />
+                <CommentFormComponent addComment={this.props.addComment} dishId={this.props.dish.id} isModalOpen={this.state.isModalOpen} toggle={this.toggleModal} />
             </div>
         );
     }
