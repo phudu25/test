@@ -4,7 +4,8 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CommentFormComponent from './CommentFormComponent';
+import CommentForm from './CommentFormComponent';
+import {Loading} from "./LoadingComponent";
 
 class DishDetail extends Component {
     constructor(props) {
@@ -50,29 +51,48 @@ class DishDetail extends Component {
     }
 
     render() {
-        return (
-            <div className="container">
-                <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>{this.props.dish.name}</h3>
-                        <hr />
+        if (this.props.isLoading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Loading/>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderDish({dish:this.props.dish})}
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {this.renderComments({comments:this.props.comments})}
+            )
+        } else if (this.props.errMess) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.errMess}</h4>
                     </div>
                 </div>
-                <CommentFormComponent addComment={this.props.addComment} dishId={this.props.dish.id} isModalOpen={this.state.isModalOpen} toggle={this.toggleModal} />
-            </div>
-        );
+            )
+        } else {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3>{this.props.dish.name}</h3>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            {this.renderDish({dish: this.props.dish})}
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                            {this.renderComments({comments: this.props.comments})}
+                        </div>
+                    </div>
+                    <CommentForm addComment={this.props.addComment} dishId={this.props.dish.id}
+                                 isModalOpen={this.state.isModalOpen} toggle={this.toggleModal}/>
+                </div>
+            );
+        }
     }
 }
 

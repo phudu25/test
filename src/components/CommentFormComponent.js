@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Button, Col, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, Navbar, Row} from "reactstrap";
 import {Control, Errors, LocalForm} from "react-redux-form";
 
-class CommentFormComponent extends Component {
+class CommentForm extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -91,4 +91,4 @@ class CommentFormComponent extends Component {
     }
 }
 
-export default CommentFormComponent;
+export default CommentForm;
