@@ -6,11 +6,12 @@ import {
 import {Link} from 'react-router-dom';
 import {Control, LocalForm, Errors} from "react-redux-form";
 import {Loading} from './LoadingComponent';
+import {baseUrl} from "../shared/baseUrl";
 
 function RenderDish({dish}) {
     return (
         <Card>
-            <CardImg top src={dish.image} alt={dish.name}/>
+            <CardImg top src={baseUrl+dish.image} alt={dish.name}/>
             <CardBody>
                 <CardTitle>{dish.name}</CardTitle>
                 <CardText>{dish.description}</CardText>
@@ -27,7 +28,7 @@ function RenderComments({comments, addComment, dishId}) {
                     <h4>Comments</h4>
                     <ul className="list-unstyled">
                         {comments.map(comment => (
-                            <li>
+                            <li   key={comment.id}>
                                 <p>{comment.comment}</p>
                                 <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', {
                                     year: 'numeric',
